@@ -1,5 +1,5 @@
 {
-  "name": "address-book",
+  "name": "address-book-vue",
   "version": "0.1.0",
   "private": true,
   "scripts": {

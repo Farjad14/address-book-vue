@@ -2,6 +2,7 @@
     <h3>Contact Card</h3>
     <div class="wrapperContactCard">
       <img v-bind:src="contactInfo.picture.large" class="profilePictureContactCard"/>
+      <br/>
       <span>First Name: {{ contactInfo.name.first }}</span>
       <span>Last Name: {{ contactInfo.name.last }}</span>
       <span>Phone Number: {{ contactInfo.phone }}</span>
@@ -26,7 +27,7 @@ export default {
 .wrapperContactCard {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   text-align: left;
   position: relative;
   padding: 1rem;

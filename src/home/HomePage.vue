@@ -1,20 +1,14 @@
 <template>
   <div class="home">
-    <div v-for="contact in contacts" :key="contact">
-      <tile
-        personId={{contact}}
-        title={{contact.name.title}}
-        firstName={{name.first}}
-        picture={{picture.large}}
-      />
-    </div>
     <div class="get-started">
-      hi there
+      Vuejs Address Book
     </div>
+    <Tile v-bind:contacts="contactLists"/>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Tile from '../components/Tile.vue';
 
 export const PARAMS = {
@@ -25,31 +19,19 @@ export const PARAMS = {
 
 export default {
   name: 'HomePage',
-  props: {
-    msg: String,
-  },
   components: {
     Tile,
   },
-  data() {
-    return {
-      contacts: [],
-    };
-  },
-  methods: {
-    async getData() {
-      try {
-        const response = await fetch(`https://randomuser.me/api/?${PARAMS?.RESULTS}=50&${PARAMS.SEED}=abc&${PARAMS.INCLUDE}=name,phone,picture,email`);
-        const data = await response.json();
-        console.log(data.results);
-        this.contacts = data.results;
-      } catch (error) {
-        console.log(error);
-      }
+  computed: {
+    contactLists() {
+      return this.$store.getters['contacts/contactLists'];
     },
   },
   created() {
-    this.getData();
+    this.getContactList();
+  },
+  methods: {
+    ...mapActions('contacts', ['getContactList']),
   },
 };
 </script>

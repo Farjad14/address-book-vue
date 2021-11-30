@@ -1,20 +1,22 @@
 <template>
-    <router-link tag="tr" :to="'/contact-info/' + personId">
-        <div class="profilePicture"  v-bind:style="{ backgroundImage: 'url(' + picture + ')' }" />
-        <div class="titleWrapper">
-            {{title}}&nbsp;{{firstName}}
-        </div>
-    </router-link>
+    <div class="wrapper" v-for="contact in contacts" v-bind:key="contact.key">
+        <router-link tag="tr" :to="'/contact-info/' + contact.key">
+            <img v-bind:src="contact.picture.large" class="profilePicture"/>
+            <div class="titleWrapper">
+                {{ contact.name.title }} {{ contact.name.first }}
+            </div>
+        </router-link>
+    </div>
 </template>
 
 <script>
 export default {
   name: 'Tile',
-  props: ['title', 'firstName', 'picture', 'personId'],
+  props: ['contacts'],
 };
 </script>
 
-<style>
+<style scoped>
 .wrapper {
     display: inline-block;
     border: 1px solid;

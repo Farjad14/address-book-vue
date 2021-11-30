@@ -1,22 +1,29 @@
 <template>
-    <div class="wrapper">
-      <div class="profilePicture"  v-bind:style="{ backgroundImage: 'url(' + picture + ')' }" />
-      <span>First Name: {{firstName}}</span>
-      <span>Last Name: {{lastName}}</span>
-      <span>Phone Number: {{phoneNumber}}</span>
-      <span>Email: {{email}}</span>
+    <h3>Contact Card</h3>
+    <div class="wrapperContactCard">
+      <img v-bind:src="contactInfo.picture.large" class="profilePictureContactCard"/>
+      <span>First Name: {{ contactInfo.name.first }}</span>
+      <span>Last Name: {{ contactInfo.name.last }}</span>
+      <span>Phone Number: {{ contactInfo.phone }}</span>
+      <span>Email: {{ contactInfo.email }}</span>
     </div>
 </template>
 
 <script>
+
 export default {
   name: 'ContactCard',
-  props: ['firstName', 'lastName', 'picture', 'phoneNumber', 'email'],
+  computed: {
+    contactInfo() {
+      const { id } = this.$route.params;
+      return this.$store.getters['contacts/contactInfo'](id);
+    },
+  },
 };
 </script>
 
 <style>
-.wrapper {
+.wrapperContactCard {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,7 +36,7 @@ export default {
   border-color: #444444;
   background-color: #ffffff;
 }
-.profilePicture {
+.profilePictureContactCard {
   width: 100px;
   background-size: cover;
 }
